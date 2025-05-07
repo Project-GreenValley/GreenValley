@@ -1,12 +1,10 @@
 {
-  "name": "greenvalley",
-  "version": "1.0.0",
-  "description": "testing pushing changes -vasean A fintech startup with the goal of fostering transparency",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "dependencies": {
+    "chai": "^5.2.0",
+    "express": "^5.1.0",
+    "jest": "^29.7.0",
+    "mocha": "^11.2.2",
+    "pg": "^8.15.6",
+    "redux-toolkit": "^1.1.2"
+  }
 }
