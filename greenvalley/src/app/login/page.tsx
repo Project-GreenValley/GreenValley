@@ -2,6 +2,21 @@ import Link from "next/link";
 import Image from "next/image";
 
 export default function Login() {
+
+    // future work --- useEffect here for checking if user is already authenticated (e.g., has a valid token or session)
+
+    // write handle submit function here
+    const handleSubmit = async (/*e*/) => {
+        // e.preventDefault();
+        // handle missing username or password
+
+        // try/catch block for fetch
+
+        // check response / error handling
+
+        //
+    }
+
     return(
         <div className='flex flex-col items-center justify-center'>
             <nav className='flex items-center p-4 bg-gray-800 text-white w-full'>
@@ -19,10 +34,10 @@ export default function Login() {
                 </div>
             </nav>
             <div className='w-full flex justify-center'>
-                <h2 className='hidden md:block text-2xl font-bold m-2'>Login</h2>
+                <h2 className='hidden md:block text-2xl font-bold m-2 mt-4'>Login</h2>
             </div>
             <div>
-                <form method='post' className='flex flex-col items-center space-y-4'>
+                <form onSubmit={handleSubmit} method='post' className='flex flex-col items-center space-y-4'>
                     <p>
                         <label htmlFor='username'>Username:</label>
                         <input id='username' type='text' name='username' className='border border-gray-700 outline-gray-700 rounded-sm ml-2'></input>
@@ -43,7 +58,7 @@ export default function Login() {
                 <div className='w-full flex justify-center'>
                     <h2 className='hidden md:block text-2xl font-bold m-2'>Sign Up</h2>
                 </div>
-                    <form method='post' className='flex flex-col items-center space-y-4'>
+                    <form onSubmit={handleSubmit} method='post' className='flex flex-col items-center space-y-4'>
                     <p>
                         <label htmlFor='newUsername'>New Username:</label>
                         <input id='newUsername' type='text' name='username' className='border border-gray-700 outline-gray-700 rounded-sm ml-2'></input>
