@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import express, { ErrorRequestHandler } from 'express';
 import cookieParser from 'cookie-parser';
+// import authController from './controllers/authController';
 import 'dotenv/config';
 
 const app  = express();
@@ -19,6 +20,12 @@ app.use(cookieParser());
 // Next.js does file-based routing --- file placement in specific folders determines your routes
 // e.g., in the /app/api folder, files become serverless functions. file becomes an endpoint
 // API design --- https://nextjs.org/blog/building-apis-with-nextjs#1-getting-started
+
+
+// Auth Related Routes
+// app.post('/login', authController.login, (req: Request, res: Response) => {
+//     res.status(200).json(`Testing login route`);
+// });
 
 
 // unknown route handler
