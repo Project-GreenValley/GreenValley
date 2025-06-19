@@ -32,10 +32,15 @@ interface CustomError extends Error {
 // API design --- https://nextjs.org/blog/building-apis-with-nextjs#1-getting-started
 
 
-// auth Related Routes
+// auth related routes
 app.post('/login', authController.login, (req: Request, res: Response) => {
     res.status(200).json('Testing /login response---success');
 });
+
+app.post('/signup', authController.signup, (req: Request, res: Response) => {
+    res.status(200).json('Testing /signup response---success');
+});
+
 
 // unknown route handler
 app.use('*', (req: Request, res: Response) => {
