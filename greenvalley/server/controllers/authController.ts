@@ -49,19 +49,19 @@ const authController = {
     const { newUsername, newPassword } = req.body;
     console.log(`In authController.signup:`, newUsername, newPassword);
 
+    // error handling for missing username or password
+    if (!newUsername || !newPassword) {
+        return next({
+            log: 'In authController.signup, missing username or password',
+            status: 400,
+            message: { err: 'Failed to sign up, fella.' }
+        })
+    }
     // // create query string for DB
     // const queryString = `SELECT * FROM users WHERE username = $1 AND password = $2`;
     // const values = [username, password]
 
     try {
-         // error handling for missing username or password
-        if (!newUsername || !newPassword) {
-            return next({
-                log: 'In authController.signup, missing username or password',
-                status: 400,
-                message: { err: 'Failed to sign up, fella.' }
-            })
-        }
         // query DB for given username and password, see
         // const results = await pool.query(queryString, values);
         // console.log(results.rows);
