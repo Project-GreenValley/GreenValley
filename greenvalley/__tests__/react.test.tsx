@@ -8,7 +8,8 @@ const resizeWindow = (x: number, y: number) => {
   window.innerHeight = y;
   window.dispatchEvent(new Event('resize'));
 };
-
+//come back to this
+//beforeAll(render(<Navbar />));
 describe('Navbar', () => {
   it('should render correctly', () => {
     render(<Navbar />); //ARRANGE (we have arranged our test)
