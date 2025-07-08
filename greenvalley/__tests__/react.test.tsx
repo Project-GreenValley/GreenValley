@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import Navbar from '../src/app/components/Navbar';
+import Navbar from '../app/app/components/Navbar';
 //describe is one of the ways in jest to start a test
 
 const resizeWindow = (x: number, y: number) => {
