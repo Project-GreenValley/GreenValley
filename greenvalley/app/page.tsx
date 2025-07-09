@@ -1,24 +1,22 @@
-import Image from "next/image";
-import Navbar from "./components/Navbar";
+import Image from 'next/image';
+import Navbar from './components/Navbar';
 
 export default function Home() {
   return (
     <div>
-      <main className="flex flex-col gap-[32px] row-start-2 items-center">
-
+      <main className='flex flex-col gap-[32px] row-start-2 items-center'>
         <Navbar />
-        
+
         <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
+          className='dark:invert'
+          src='/next.svg'
+          alt='Next.js logo'
           width={180}
           height={38}
           priority
         />
-        
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
+      <footer className='row-start-3 flex gap-[24px] flex-wrap items-center justify-center'>
         Copyright © 2025 GreenValley
       </footer>
     </div>

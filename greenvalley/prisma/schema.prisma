@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
+  output   = "../app/generated/prisma"
 }
 
 datasource db {
@@ -16,4 +16,6 @@ model users {
   username   String   @unique @db.VarChar
   password   String   @db.VarChar
   bio        String?
+  email      String   @unique @db.VarChar
+  name       String   @default("Anonymous") @db.VarChar
 }
