@@ -32,6 +32,8 @@ export async function createUser(formdata: FormData) {
     return await createUserSession(user[0].id);
   } catch (e) {
     console.error('Error creating user:', e);
+  } finally {
+    redirect('/');
   }
 }
 export async function signInUser(formdata: FormData) {
