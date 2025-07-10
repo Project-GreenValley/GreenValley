@@ -3,6 +3,8 @@ import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import prisma from '@/../lib/prisma';
 
+import { createUserSession } from '../../../../lib/session';
+
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID!;
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET!;
 
@@ -16,6 +18,7 @@ const authOptions: NextAuthOptions = {
   callbacks: {
     async signIn({ profile }) {
       //does the user exists? throw an error
+      console.log(profile);
       if (!profile?.email) {
         throw new Error('Profile does not exist');
       }
@@ -27,16 +30,17 @@ const authOptions: NextAuthOptions = {
         },
         //creates user in db
         create: {
-          username: profile.email.split('@')[0],
           password: '',
           email: profile.email,
           name: profile.name,
+          google_id: profile.sub,
         },
         //updates user in db
         update: {
           name: profile.name,
         },
       });
+      await createUserSession(profile.sub!);
       return true;
     },
   },
