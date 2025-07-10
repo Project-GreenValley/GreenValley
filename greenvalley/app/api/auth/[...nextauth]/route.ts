@@ -2,8 +2,11 @@ import { NextAuthOptions } from 'next-auth';
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import prisma from '@/../lib/prisma';
+import { createUserSession } from 'lib/session';
+import { Users } from 'lib/types';
 
-import { createUserSession } from '../../../../lib/session';
+// import { createUserSession } from '../../../../lib/session';
+// import { Users } from '../../../../lib/types';
 
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID!;
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET!;
@@ -40,7 +43,12 @@ const authOptions: NextAuthOptions = {
           name: profile.name,
         },
       });
-      await createUserSession(profile.sub!);
+      const user: Users[] | null = await prisma.users.findMany({
+        where: {
+          google_id: profile.sub,
+        },
+      });
+      await createUserSession(user[0].id);
       return true;
     },
   },

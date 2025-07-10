@@ -3,6 +3,8 @@
 import Link from 'next/link';
 
 export default function Navbar() {
+  // const user =
+
   return (
     <nav className='flex items-center justify-between p-4 text-[#1F2933] w-full'>
       <div className='md:block text-2xl font-bold'>
@@ -12,6 +14,7 @@ export default function Navbar() {
         <button className=' x-4 p-2 rounded border-2 hover:text-[#A4DE02]'>
           Start a Campaign
         </button>
+
         <Link
           href='/sign-in'
           className='  px-4 py-2 rounded hover:text-[#A4DE02]'

@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import GoogleSignIn from './googlesignin';
-import { createUser, findUser } from '../actions/actions';
+import { createUser, findUser, signInUser } from '../helpers/actions';
 import { Users } from '../../lib/types';
 
 const Credentials = () => {
@@ -26,7 +26,7 @@ const Credentials = () => {
 
   return (
     <form
-      action={createUser}
+      action={existing === 'true' ? signInUser : createUser}
       className='flex flex-col gap-2 w-full h-1/4 justify-center'
     >
       {existing != 'google' && (
