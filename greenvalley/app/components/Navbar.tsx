@@ -1,25 +1,42 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
+import Menu from './Menu';
 
 export default function Navbar() {
   // const user =
 
   return (
-    <nav className='flex items-center justify-between p-4 text-[#1F2933] w-full'>
-      <div className='md:block text-2xl font-bold'>
-        <h1>GREENVALLEY</h1>
-      </div>
-      <div className='flex w-full md:w-auto justify-between md:justify-end items-center gap-0 md:gap-4'>
-        <button className=' x-4 p-2 rounded border-2 hover:text-[#A4DE02]'>
-          Start a Campaign
-        </button>
+    <nav className='flex justify-between items-start text-[#1F2933] w-screen h-20 p-4 shadow-sm'>
+      <div className=''>
+        <button className='hidden'>Start a Campaign</button>
 
-        <Link
-          href='/sign-in'
-          className='  px-4 py-2 rounded hover:text-[#A4DE02]'
-        >
-          Login/Signup
+        <Link href='/sign-in' className=' '>
+          <Image
+            width={40}
+            height={40}
+            alt={'user icon'}
+            src={'/user.png'}
+          ></Image>
+        </Link>
+      </div>
+      <div className=''>
+        <Image
+          width={65}
+          height={30}
+          alt={'Green Valley Logo'}
+          src={'/GreenValleyLogo.png'}
+        ></Image>
+      </div>
+
+      <div className='md:hidden'>
+        <Menu />
+      </div>
+
+      <div className='max-md:hidden'>
+        <Link href='/sign-in' className='p-2 text-lg'>
+          Login
         </Link>
       </div>
     </nav>
