@@ -147,6 +147,10 @@ const config = {
       },
       {
         "fromEnvVar": null,
+        "value": "rhel-openssl-3.0.x"
+      },
+      {
+        "fromEnvVar": null,
         "value": "linux-musl"
       },
       {
@@ -178,8 +182,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../app/generated/prisma\"\n  binaryTargets = [\"native\", \"linux-musl\", \"linux-musl-arm64-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\n/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments\n/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.\nmodel users {\n  id         BigInt   @id @default(autoincrement())\n  created_at DateTime @default(now()) @db.Timestamptz(6)\n  password   String   @db.VarChar\n  bio        String?\n  email      String   @unique @db.VarChar\n  name       String   @default(\"Anonymous\") @db.VarChar\n  salt       String   @default(\"NULL\") @db.VarChar\n  google_id  String?  @unique @db.VarChar\n}\n",
-  "inlineSchemaHash": "bba4196add34c9c851d983e75501e4db5b3378884eab0929de286c2faeffdf72",
+  "inlineSchema": "generator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../app/generated/prisma\"\n  binaryTargets = [\"native\", \"rhel-openssl-3.0.x\", \"linux-musl\", \"linux-musl-arm64-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\n/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments\n/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.\nmodel users {\n  id         BigInt   @id @default(autoincrement())\n  created_at DateTime @default(now()) @db.Timestamptz(6)\n  password   String   @db.VarChar\n  bio        String?\n  email      String   @unique @db.VarChar\n  name       String   @default(\"Anonymous\") @db.VarChar\n  salt       String   @default(\"NULL\") @db.VarChar\n  google_id  String?  @unique @db.VarChar\n}\n",
+  "inlineSchemaHash": "463420d44020b0ab98246a961ecff0131e38f65d0d3f93451fadbd5d708f1ee1",
   "copyEngine": true
 }
 config.dirname = '/'
