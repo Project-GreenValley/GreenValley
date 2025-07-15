@@ -1,0 +1,15 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm ci
+    build:
+      commands:
+        # Inject build-time secrets into the runtime env file inside output
+        - env | grep -E 'DATABASE_URL|DIRECT_URL|NEXTAUTH_SECRET|REDIS_URL|NEXTAUTH_URL' >> .next/standalone/.env.production
+        - npm run build
+  artifacts:
+    baseDirectory: .next
+    files:
+      - '**/*'
