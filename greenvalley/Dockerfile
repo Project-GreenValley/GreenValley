@@ -17,6 +17,15 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+ARG REDIS_URL='http://dummy-redis'
+ARG DATABASE_URL='postgresql://readonly:readonly@public-host/safe_build_db'
+ARG NEXTAUTH_SECRET='placeholder-secret'
+
+# Make them available during build
+ENV REDIS_URL=$REDIS_URL
+ENV DATABASE_URL=$DATABASE_URL
+ENV NEXTAUTH_SECRET=$NEXTAUTH_SECRET
+
 RUN npm run build
 
 FROM base AS runner

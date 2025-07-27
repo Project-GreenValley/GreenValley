@@ -21,7 +21,7 @@ export async function createUserSession(userId: bigint | string) {
   cookieStore.set({
     name: COOKIE_SESSION_KEY,
     value: sessionId,
-    secure: true,
+    secure: true, //currently wont keep cookies on DNS server because this is set to true
     httpOnly: true,
     sameSite: 'lax',
     expires: Date.now() + EXPIRATION_TIME * 1000,

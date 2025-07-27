@@ -7,3 +7,4 @@ README.me
 !.next/static
 !.next/standalone
 .git
+.env
