@@ -4,7 +4,7 @@ import React from 'react';
 
 const googlesignin = () => {
   const handleClick = () => {
-    console.log('signing in with google');
+    //console.log('signing in with google');
     signIn('google', { callbackUrl: '/' });
   };
   return (

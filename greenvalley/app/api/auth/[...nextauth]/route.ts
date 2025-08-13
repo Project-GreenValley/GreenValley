@@ -21,7 +21,7 @@ const authOptions: NextAuthOptions = {
   callbacks: {
     async signIn({ profile }) {
       //does the user exists? throw an error
-      console.log(profile);
+      //console.log(profile);
       if (!profile?.email) {
         throw new Error('Profile does not exist');
       }

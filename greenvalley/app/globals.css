@@ -35,6 +35,28 @@ body {
   color: var(--foreground);
 
   font-family: Arial, Helvetica, sans-serif; */
-
+  font-weight: 200;
   font-family: 'Inter', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 500;
+}
+
+p {
+  font-weight: 200;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
