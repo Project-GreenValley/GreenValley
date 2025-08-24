@@ -15,7 +15,7 @@ export default async function Home() {
       <div>
         <Showcase />
         <Start />
-        <div className=' p-2 flex text-center w-screen h-20 bg-blue-100 items-center font-bold'>
+        <div className=' p-2 flex text-center w-screen h-20 bg-blue-100 items-center font-bold justify-center gap-1'>
           <FaRegEye className='text-6xl' />
           Campaigns are monitored using different methods to ensure authenticity
         </div>

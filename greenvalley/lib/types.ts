@@ -8,3 +8,6 @@ export type Users = {
   bio: string | null;
   google_id: string | null;
 };
+export interface CaroselComponent {
+  slides: React.ReactNode[];
+}

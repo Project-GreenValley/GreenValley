@@ -1,6 +1,7 @@
 'use client';
 import React, { use } from 'react';
 import { motion } from 'motion/react';
+import Link from 'next/link';
 
 const Start = () => {
   return (
@@ -10,8 +11,7 @@ const Start = () => {
           Start raising under one of our many causes
         </h1>
         <motion.button className='p-4 bg-[#9fe3d2] rounded-4xl'>
-          {' '}
-          Start a Campaign{' '}
+          <Link href='/create'>Start a Campaign</Link>
         </motion.button>
       </div>
     </div>
