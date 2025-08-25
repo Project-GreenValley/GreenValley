@@ -11,8 +11,8 @@ const Carosel: FC<CaroselComponent> = ({ slides }) => {
     setCurr((curr) => (curr === slides.length - 1 ? curr : curr + 1));
   return (
     <div className='w-screen h-[calc(100vh-4rem)] flex justify-center '>
-      <div className='p-4 flex flex-col w-3/4 items-center'>
-        <div className='p-2 h-3/4 w-full'>
+      <div className='p-4 flex flex-col w-full items-center md:w-3/4'>
+        <div className=' h-3/4 w-full'>
           <AnimatePresence mode='popLayout'>
             <motion.div
               key={curr}
@@ -20,6 +20,7 @@ const Carosel: FC<CaroselComponent> = ({ slides }) => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
+              className='h-full'
             >
               {slides[curr]}
             </motion.div>

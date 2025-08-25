@@ -69,7 +69,7 @@ const Menu = () => {
                   </motion.div>
                   <div className='w-full flex flex-col items-center justify-center gap-2'>
                     <Link
-                      href={'/sign-in'}
+                      href={'/create'}
                       className='text-xl p-2 w-full font-bold bg-[#9fe3d2] text-white rounded-3xl text-center'
                     >
                       Start a campaign

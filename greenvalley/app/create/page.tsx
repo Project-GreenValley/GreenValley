@@ -14,7 +14,7 @@ const page = () => {
   return (
     <div className='w-full'>
       <div className='w-full flex justify-center'>
-        <div className='w-3/4'>
+        <div className='w-full md:w-3/4'>
           <div className='flex p-6 h-20 justify-center items-center '>
             <IoIosLeaf className='text-[#9fe3d2] text-3xl' />
             <Link className='flex' href='/'>
