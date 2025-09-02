@@ -3,7 +3,7 @@ import { Users } from '../lib/types';
 import Navbar from './components/Navbar';
 import Showcase from './components/showcase';
 import Featured from './components/featured';
-import { signoutUser } from './helpers/actions';
+import { signoutUser } from './helpers/userActions';
 import { getCurrentUser } from './helpers/currentUser';
 import Start from './components/Start';
 import { FaRegEye } from 'react-icons/fa';

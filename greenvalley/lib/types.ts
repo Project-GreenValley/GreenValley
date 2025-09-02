@@ -11,3 +11,32 @@ export type Users = {
 export interface CaroselComponent {
   slides: React.ReactNode[];
 }
+
+export type State = {
+  id: bigint;
+  code: string;
+  name: string;
+  country_code: string;
+};
+
+export type SmartyObj = {
+  input_index: number;
+  city_states: {
+    city: string;
+    state_abbreviation: string;
+    state: string;
+    mailable_city: boolean;
+  }[];
+  zipcodes: {
+    zipcode: string;
+    zipcode_type: string;
+    default_city: string;
+    county_flips: string;
+    county_name: string;
+    state_abbreviation: string;
+    state: string;
+    latitude: number;
+    longitude: number;
+    precision: string;
+  }[];
+};

@@ -19,6 +19,12 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  * This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
  */
 export type users = $Result.DefaultSelection<Prisma.$usersPayload>
+/**
+ * Model states
+ * This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+ * This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+ */
+export type states = $Result.DefaultSelection<Prisma.$statesPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -36,7 +42,7 @@ export type users = $Result.DefaultSelection<Prisma.$usersPayload>
  */
 export class PrismaClient<
   ClientOptions extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
-  U = 'log' extends keyof ClientOptions ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<ClientOptions['log']> : never : never,
+  const U = 'log' extends keyof ClientOptions ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<ClientOptions['log']> : never : never,
   ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs
 > {
   [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['other'] }
@@ -68,13 +74,6 @@ export class PrismaClient<
    * Disconnect from the database
    */
   $disconnect(): $Utils.JsPromise<void>;
-
-  /**
-   * Add a middleware
-   * @deprecated since 4.16.0. For new code, prefer client extensions instead.
-   * @see https://pris.ly/d/extensions
-   */
-  $use(cb: Prisma.Middleware): void
 
 /**
    * Executes a prepared raw query and returns the number of affected rows.
@@ -154,6 +153,16 @@ export class PrismaClient<
     * ```
     */
   get users(): Prisma.usersDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.states`: Exposes CRUD operations for the **states** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more States
+    * const states = await prisma.states.findMany()
+    * ```
+    */
+  get states(): Prisma.statesDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -212,8 +221,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.11.1
-   * Query Engine version: f40f79ec31188888a2e33acda0ecc8fd10a853a9
+   * Prisma Client JS version: 6.15.0
+   * Query Engine version: 85179d7826409ee107a6ba334b5e305ae3fba9fb
    */
   export type PrismaVersion = {
     client: string
@@ -594,7 +603,8 @@ export namespace Prisma {
 
 
   export const ModelName: {
-    users: 'users'
+    users: 'users',
+    states: 'states'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -613,7 +623,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "users"
+      modelProps: "users" | "states"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -691,6 +701,80 @@ export namespace Prisma {
           }
         }
       }
+      states: {
+        payload: Prisma.$statesPayload<ExtArgs>
+        fields: Prisma.statesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.statesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$statesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.statesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$statesPayload>
+          }
+          findFirst: {
+            args: Prisma.statesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$statesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.statesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$statesPayload>
+          }
+          findMany: {
+            args: Prisma.statesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$statesPayload>[]
+          }
+          create: {
+            args: Prisma.statesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$statesPayload>
+          }
+          createMany: {
+            args: Prisma.statesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.statesCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$statesPayload>[]
+          }
+          delete: {
+            args: Prisma.statesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$statesPayload>
+          }
+          update: {
+            args: Prisma.statesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$statesPayload>
+          }
+          deleteMany: {
+            args: Prisma.statesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.statesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.statesUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$statesPayload>[]
+          }
+          upsert: {
+            args: Prisma.statesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$statesPayload>
+          }
+          aggregate: {
+            args: Prisma.StatesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateStates>
+          }
+          groupBy: {
+            args: Prisma.statesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<StatesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.statesCountArgs<ExtArgs>
+            result: $Utils.Optional<StatesCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -734,16 +818,24 @@ export namespace Prisma {
     /**
      * @example
      * ```
-     * // Defaults to stdout
+     * // Shorthand for `emit: 'stdout'`
      * log: ['query', 'info', 'warn', 'error']
      * 
-     * // Emit as events
+     * // Emit as events only
      * log: [
-     *   { emit: 'stdout', level: 'query' },
-     *   { emit: 'stdout', level: 'info' },
-     *   { emit: 'stdout', level: 'warn' }
-     *   { emit: 'stdout', level: 'error' }
+     *   { emit: 'event', level: 'query' },
+     *   { emit: 'event', level: 'info' },
+     *   { emit: 'event', level: 'warn' }
+     *   { emit: 'event', level: 'error' }
      * ]
+     * 
+     * / Emit as events and log to stdout
+     * og: [
+     *  { emit: 'stdout', level: 'query' },
+     *  { emit: 'stdout', level: 'info' },
+     *  { emit: 'stdout', level: 'warn' }
+     *  { emit: 'stdout', level: 'error' }
+     * 
      * ```
      * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/logging#the-log-option).
      */
@@ -776,6 +868,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     users?: usersOmit
+    states?: statesOmit
   }
 
   /* Types for Logging */
@@ -785,10 +878,15 @@ export namespace Prisma {
     emit: 'stdout' | 'event'
   }
 
-  export type GetLogType<T extends LogLevel | LogDefinition> = T extends LogDefinition ? T['emit'] extends 'event' ? T['level'] : never : never
-  export type GetEvents<T extends any> = T extends Array<LogLevel | LogDefinition> ?
-    GetLogType<T[0]> | GetLogType<T[1]> | GetLogType<T[2]> | GetLogType<T[3]>
-    : never
+  export type CheckIsLogLevel<T> = T extends LogLevel ? T : never;
+
+  export type GetLogType<T> = CheckIsLogLevel<
+    T extends LogDefinition ? T['level'] : T
+  >;
+
+  export type GetEvents<T extends any[]> = T extends Array<LogLevel | LogDefinition>
+    ? GetLogType<T[number]>
+    : never;
 
   export type QueryEvent = {
     timestamp: Date
@@ -828,25 +926,6 @@ export namespace Prisma {
     | 'runCommandRaw'
     | 'findRaw'
     | 'groupBy'
-
-  /**
-   * These options are being passed into the middleware as "params"
-   */
-  export type MiddlewareParams = {
-    model?: ModelName
-    action: PrismaAction
-    args: any
-    dataPath: string[]
-    runInTransaction: boolean
-  }
-
-  /**
-   * The `T` type makes sure, that the `return proceed` is not forgotten in the middleware implementation
-   */
-  export type Middleware<T = any> = (
-    params: MiddlewareParams,
-    next: (params: MiddlewareParams) => $Utils.JsPromise<T>,
-  ) => $Utils.JsPromise<T>
 
   // tested in getLogLevel.test.ts
   export function getLogLevel(log: Array<LogLevel | LogDefinition>): LogLevel | undefined;
@@ -1939,6 +2018,1022 @@ export namespace Prisma {
 
 
   /**
+   * Model states
+   */
+
+  export type AggregateStates = {
+    _count: StatesCountAggregateOutputType | null
+    _avg: StatesAvgAggregateOutputType | null
+    _sum: StatesSumAggregateOutputType | null
+    _min: StatesMinAggregateOutputType | null
+    _max: StatesMaxAggregateOutputType | null
+  }
+
+  export type StatesAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type StatesSumAggregateOutputType = {
+    id: bigint | null
+  }
+
+  export type StatesMinAggregateOutputType = {
+    id: bigint | null
+    code: string | null
+    name: string | null
+    country_code: string | null
+  }
+
+  export type StatesMaxAggregateOutputType = {
+    id: bigint | null
+    code: string | null
+    name: string | null
+    country_code: string | null
+  }
+
+  export type StatesCountAggregateOutputType = {
+    id: number
+    code: number
+    name: number
+    country_code: number
+    _all: number
+  }
+
+
+  export type StatesAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type StatesSumAggregateInputType = {
+    id?: true
+  }
+
+  export type StatesMinAggregateInputType = {
+    id?: true
+    code?: true
+    name?: true
+    country_code?: true
+  }
+
+  export type StatesMaxAggregateInputType = {
+    id?: true
+    code?: true
+    name?: true
+    country_code?: true
+  }
+
+  export type StatesCountAggregateInputType = {
+    id?: true
+    code?: true
+    name?: true
+    country_code?: true
+    _all?: true
+  }
+
+  export type StatesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which states to aggregate.
+     */
+    where?: statesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of states to fetch.
+     */
+    orderBy?: statesOrderByWithRelationInput | statesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: statesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` states from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` states.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned states
+    **/
+    _count?: true | StatesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: StatesAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: StatesSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: StatesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: StatesMaxAggregateInputType
+  }
+
+  export type GetStatesAggregateType<T extends StatesAggregateArgs> = {
+        [P in keyof T & keyof AggregateStates]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateStates[P]>
+      : GetScalarType<T[P], AggregateStates[P]>
+  }
+
+
+
+
+  export type statesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: statesWhereInput
+    orderBy?: statesOrderByWithAggregationInput | statesOrderByWithAggregationInput[]
+    by: StatesScalarFieldEnum[] | StatesScalarFieldEnum
+    having?: statesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: StatesCountAggregateInputType | true
+    _avg?: StatesAvgAggregateInputType
+    _sum?: StatesSumAggregateInputType
+    _min?: StatesMinAggregateInputType
+    _max?: StatesMaxAggregateInputType
+  }
+
+  export type StatesGroupByOutputType = {
+    id: bigint
+    code: string
+    name: string
+    country_code: string
+    _count: StatesCountAggregateOutputType | null
+    _avg: StatesAvgAggregateOutputType | null
+    _sum: StatesSumAggregateOutputType | null
+    _min: StatesMinAggregateOutputType | null
+    _max: StatesMaxAggregateOutputType | null
+  }
+
+  type GetStatesGroupByPayload<T extends statesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<StatesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof StatesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], StatesGroupByOutputType[P]>
+            : GetScalarType<T[P], StatesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type statesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    country_code?: boolean
+  }, ExtArgs["result"]["states"]>
+
+  export type statesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    country_code?: boolean
+  }, ExtArgs["result"]["states"]>
+
+  export type statesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    country_code?: boolean
+  }, ExtArgs["result"]["states"]>
+
+  export type statesSelectScalar = {
+    id?: boolean
+    code?: boolean
+    name?: boolean
+    country_code?: boolean
+  }
+
+  export type statesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "name" | "country_code", ExtArgs["result"]["states"]>
+
+  export type $statesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "states"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: bigint
+      code: string
+      name: string
+      country_code: string
+    }, ExtArgs["result"]["states"]>
+    composites: {}
+  }
+
+  type statesGetPayload<S extends boolean | null | undefined | statesDefaultArgs> = $Result.GetResult<Prisma.$statesPayload, S>
+
+  type statesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<statesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: StatesCountAggregateInputType | true
+    }
+
+  export interface statesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['states'], meta: { name: 'states' } }
+    /**
+     * Find zero or one States that matches the filter.
+     * @param {statesFindUniqueArgs} args - Arguments to find a States
+     * @example
+     * // Get one States
+     * const states = await prisma.states.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends statesFindUniqueArgs>(args: SelectSubset<T, statesFindUniqueArgs<ExtArgs>>): Prisma__statesClient<$Result.GetResult<Prisma.$statesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one States that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {statesFindUniqueOrThrowArgs} args - Arguments to find a States
+     * @example
+     * // Get one States
+     * const states = await prisma.states.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends statesFindUniqueOrThrowArgs>(args: SelectSubset<T, statesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__statesClient<$Result.GetResult<Prisma.$statesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first States that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {statesFindFirstArgs} args - Arguments to find a States
+     * @example
+     * // Get one States
+     * const states = await prisma.states.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends statesFindFirstArgs>(args?: SelectSubset<T, statesFindFirstArgs<ExtArgs>>): Prisma__statesClient<$Result.GetResult<Prisma.$statesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first States that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {statesFindFirstOrThrowArgs} args - Arguments to find a States
+     * @example
+     * // Get one States
+     * const states = await prisma.states.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends statesFindFirstOrThrowArgs>(args?: SelectSubset<T, statesFindFirstOrThrowArgs<ExtArgs>>): Prisma__statesClient<$Result.GetResult<Prisma.$statesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more States that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {statesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all States
+     * const states = await prisma.states.findMany()
+     * 
+     * // Get first 10 States
+     * const states = await prisma.states.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const statesWithIdOnly = await prisma.states.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends statesFindManyArgs>(args?: SelectSubset<T, statesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$statesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a States.
+     * @param {statesCreateArgs} args - Arguments to create a States.
+     * @example
+     * // Create one States
+     * const States = await prisma.states.create({
+     *   data: {
+     *     // ... data to create a States
+     *   }
+     * })
+     * 
+     */
+    create<T extends statesCreateArgs>(args: SelectSubset<T, statesCreateArgs<ExtArgs>>): Prisma__statesClient<$Result.GetResult<Prisma.$statesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many States.
+     * @param {statesCreateManyArgs} args - Arguments to create many States.
+     * @example
+     * // Create many States
+     * const states = await prisma.states.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends statesCreateManyArgs>(args?: SelectSubset<T, statesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many States and returns the data saved in the database.
+     * @param {statesCreateManyAndReturnArgs} args - Arguments to create many States.
+     * @example
+     * // Create many States
+     * const states = await prisma.states.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many States and only return the `id`
+     * const statesWithIdOnly = await prisma.states.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends statesCreateManyAndReturnArgs>(args?: SelectSubset<T, statesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$statesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a States.
+     * @param {statesDeleteArgs} args - Arguments to delete one States.
+     * @example
+     * // Delete one States
+     * const States = await prisma.states.delete({
+     *   where: {
+     *     // ... filter to delete one States
+     *   }
+     * })
+     * 
+     */
+    delete<T extends statesDeleteArgs>(args: SelectSubset<T, statesDeleteArgs<ExtArgs>>): Prisma__statesClient<$Result.GetResult<Prisma.$statesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one States.
+     * @param {statesUpdateArgs} args - Arguments to update one States.
+     * @example
+     * // Update one States
+     * const states = await prisma.states.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends statesUpdateArgs>(args: SelectSubset<T, statesUpdateArgs<ExtArgs>>): Prisma__statesClient<$Result.GetResult<Prisma.$statesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more States.
+     * @param {statesDeleteManyArgs} args - Arguments to filter States to delete.
+     * @example
+     * // Delete a few States
+     * const { count } = await prisma.states.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends statesDeleteManyArgs>(args?: SelectSubset<T, statesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more States.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {statesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many States
+     * const states = await prisma.states.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends statesUpdateManyArgs>(args: SelectSubset<T, statesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more States and returns the data updated in the database.
+     * @param {statesUpdateManyAndReturnArgs} args - Arguments to update many States.
+     * @example
+     * // Update many States
+     * const states = await prisma.states.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more States and only return the `id`
+     * const statesWithIdOnly = await prisma.states.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends statesUpdateManyAndReturnArgs>(args: SelectSubset<T, statesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$statesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one States.
+     * @param {statesUpsertArgs} args - Arguments to update or create a States.
+     * @example
+     * // Update or create a States
+     * const states = await prisma.states.upsert({
+     *   create: {
+     *     // ... data to create a States
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the States we want to update
+     *   }
+     * })
+     */
+    upsert<T extends statesUpsertArgs>(args: SelectSubset<T, statesUpsertArgs<ExtArgs>>): Prisma__statesClient<$Result.GetResult<Prisma.$statesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of States.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {statesCountArgs} args - Arguments to filter States to count.
+     * @example
+     * // Count the number of States
+     * const count = await prisma.states.count({
+     *   where: {
+     *     // ... the filter for the States we want to count
+     *   }
+     * })
+    **/
+    count<T extends statesCountArgs>(
+      args?: Subset<T, statesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], StatesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a States.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StatesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends StatesAggregateArgs>(args: Subset<T, StatesAggregateArgs>): Prisma.PrismaPromise<GetStatesAggregateType<T>>
+
+    /**
+     * Group by States.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {statesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends statesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: statesGroupByArgs['orderBy'] }
+        : { orderBy?: statesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, statesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStatesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the states model
+   */
+  readonly fields: statesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for states.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__statesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the states model
+   */
+  interface statesFieldRefs {
+    readonly id: FieldRef<"states", 'BigInt'>
+    readonly code: FieldRef<"states", 'String'>
+    readonly name: FieldRef<"states", 'String'>
+    readonly country_code: FieldRef<"states", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * states findUnique
+   */
+  export type statesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the states
+     */
+    select?: statesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the states
+     */
+    omit?: statesOmit<ExtArgs> | null
+    /**
+     * Filter, which states to fetch.
+     */
+    where: statesWhereUniqueInput
+  }
+
+  /**
+   * states findUniqueOrThrow
+   */
+  export type statesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the states
+     */
+    select?: statesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the states
+     */
+    omit?: statesOmit<ExtArgs> | null
+    /**
+     * Filter, which states to fetch.
+     */
+    where: statesWhereUniqueInput
+  }
+
+  /**
+   * states findFirst
+   */
+  export type statesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the states
+     */
+    select?: statesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the states
+     */
+    omit?: statesOmit<ExtArgs> | null
+    /**
+     * Filter, which states to fetch.
+     */
+    where?: statesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of states to fetch.
+     */
+    orderBy?: statesOrderByWithRelationInput | statesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for states.
+     */
+    cursor?: statesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` states from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` states.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of states.
+     */
+    distinct?: StatesScalarFieldEnum | StatesScalarFieldEnum[]
+  }
+
+  /**
+   * states findFirstOrThrow
+   */
+  export type statesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the states
+     */
+    select?: statesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the states
+     */
+    omit?: statesOmit<ExtArgs> | null
+    /**
+     * Filter, which states to fetch.
+     */
+    where?: statesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of states to fetch.
+     */
+    orderBy?: statesOrderByWithRelationInput | statesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for states.
+     */
+    cursor?: statesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` states from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` states.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of states.
+     */
+    distinct?: StatesScalarFieldEnum | StatesScalarFieldEnum[]
+  }
+
+  /**
+   * states findMany
+   */
+  export type statesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the states
+     */
+    select?: statesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the states
+     */
+    omit?: statesOmit<ExtArgs> | null
+    /**
+     * Filter, which states to fetch.
+     */
+    where?: statesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of states to fetch.
+     */
+    orderBy?: statesOrderByWithRelationInput | statesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing states.
+     */
+    cursor?: statesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` states from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` states.
+     */
+    skip?: number
+    distinct?: StatesScalarFieldEnum | StatesScalarFieldEnum[]
+  }
+
+  /**
+   * states create
+   */
+  export type statesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the states
+     */
+    select?: statesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the states
+     */
+    omit?: statesOmit<ExtArgs> | null
+    /**
+     * The data needed to create a states.
+     */
+    data: XOR<statesCreateInput, statesUncheckedCreateInput>
+  }
+
+  /**
+   * states createMany
+   */
+  export type statesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many states.
+     */
+    data: statesCreateManyInput | statesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * states createManyAndReturn
+   */
+  export type statesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the states
+     */
+    select?: statesSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the states
+     */
+    omit?: statesOmit<ExtArgs> | null
+    /**
+     * The data used to create many states.
+     */
+    data: statesCreateManyInput | statesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * states update
+   */
+  export type statesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the states
+     */
+    select?: statesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the states
+     */
+    omit?: statesOmit<ExtArgs> | null
+    /**
+     * The data needed to update a states.
+     */
+    data: XOR<statesUpdateInput, statesUncheckedUpdateInput>
+    /**
+     * Choose, which states to update.
+     */
+    where: statesWhereUniqueInput
+  }
+
+  /**
+   * states updateMany
+   */
+  export type statesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update states.
+     */
+    data: XOR<statesUpdateManyMutationInput, statesUncheckedUpdateManyInput>
+    /**
+     * Filter which states to update
+     */
+    where?: statesWhereInput
+    /**
+     * Limit how many states to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * states updateManyAndReturn
+   */
+  export type statesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the states
+     */
+    select?: statesSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the states
+     */
+    omit?: statesOmit<ExtArgs> | null
+    /**
+     * The data used to update states.
+     */
+    data: XOR<statesUpdateManyMutationInput, statesUncheckedUpdateManyInput>
+    /**
+     * Filter which states to update
+     */
+    where?: statesWhereInput
+    /**
+     * Limit how many states to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * states upsert
+   */
+  export type statesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the states
+     */
+    select?: statesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the states
+     */
+    omit?: statesOmit<ExtArgs> | null
+    /**
+     * The filter to search for the states to update in case it exists.
+     */
+    where: statesWhereUniqueInput
+    /**
+     * In case the states found by the `where` argument doesn't exist, create a new states with this data.
+     */
+    create: XOR<statesCreateInput, statesUncheckedCreateInput>
+    /**
+     * In case the states was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<statesUpdateInput, statesUncheckedUpdateInput>
+  }
+
+  /**
+   * states delete
+   */
+  export type statesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the states
+     */
+    select?: statesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the states
+     */
+    omit?: statesOmit<ExtArgs> | null
+    /**
+     * Filter which states to delete.
+     */
+    where: statesWhereUniqueInput
+  }
+
+  /**
+   * states deleteMany
+   */
+  export type statesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which states to delete
+     */
+    where?: statesWhereInput
+    /**
+     * Limit how many states to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * states without action
+   */
+  export type statesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the states
+     */
+    select?: statesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the states
+     */
+    omit?: statesOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -1964,6 +3059,16 @@ export namespace Prisma {
   };
 
   export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
+
+
+  export const StatesScalarFieldEnum: {
+    id: 'id',
+    code: 'code',
+    name: 'name',
+    country_code: 'country_code'
+  };
+
+  export type StatesScalarFieldEnum = (typeof StatesScalarFieldEnum)[keyof typeof StatesScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -2137,6 +3242,55 @@ export namespace Prisma {
     google_id?: StringNullableWithAggregatesFilter<"users"> | string | null
   }
 
+  export type statesWhereInput = {
+    AND?: statesWhereInput | statesWhereInput[]
+    OR?: statesWhereInput[]
+    NOT?: statesWhereInput | statesWhereInput[]
+    id?: BigIntFilter<"states"> | bigint | number
+    code?: StringFilter<"states"> | string
+    name?: StringFilter<"states"> | string
+    country_code?: StringFilter<"states"> | string
+  }
+
+  export type statesOrderByWithRelationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    country_code?: SortOrder
+  }
+
+  export type statesWhereUniqueInput = Prisma.AtLeast<{
+    id?: bigint | number
+    AND?: statesWhereInput | statesWhereInput[]
+    OR?: statesWhereInput[]
+    NOT?: statesWhereInput | statesWhereInput[]
+    code?: StringFilter<"states"> | string
+    name?: StringFilter<"states"> | string
+    country_code?: StringFilter<"states"> | string
+  }, "id">
+
+  export type statesOrderByWithAggregationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    country_code?: SortOrder
+    _count?: statesCountOrderByAggregateInput
+    _avg?: statesAvgOrderByAggregateInput
+    _max?: statesMaxOrderByAggregateInput
+    _min?: statesMinOrderByAggregateInput
+    _sum?: statesSumOrderByAggregateInput
+  }
+
+  export type statesScalarWhereWithAggregatesInput = {
+    AND?: statesScalarWhereWithAggregatesInput | statesScalarWhereWithAggregatesInput[]
+    OR?: statesScalarWhereWithAggregatesInput[]
+    NOT?: statesScalarWhereWithAggregatesInput | statesScalarWhereWithAggregatesInput[]
+    id?: BigIntWithAggregatesFilter<"states"> | bigint | number
+    code?: StringWithAggregatesFilter<"states"> | string
+    name?: StringWithAggregatesFilter<"states"> | string
+    country_code?: StringWithAggregatesFilter<"states"> | string
+  }
+
   export type usersCreateInput = {
     id?: bigint | number
     created_at?: Date | string
@@ -2212,6 +3366,55 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     salt?: StringFieldUpdateOperationsInput | string
     google_id?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type statesCreateInput = {
+    id?: bigint | number
+    code: string
+    name: string
+    country_code?: string
+  }
+
+  export type statesUncheckedCreateInput = {
+    id?: bigint | number
+    code: string
+    name: string
+    country_code?: string
+  }
+
+  export type statesUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    country_code?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type statesUncheckedUpdateInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    country_code?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type statesCreateManyInput = {
+    id?: bigint | number
+    code: string
+    name: string
+    country_code?: string
+  }
+
+  export type statesUpdateManyMutationInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    country_code?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type statesUncheckedUpdateManyInput = {
+    id?: BigIntFieldUpdateOperationsInput | bigint | number
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    country_code?: StringFieldUpdateOperationsInput | string
   }
 
   export type BigIntFilter<$PrismaModel = never> = {
@@ -2376,6 +3579,35 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type statesCountOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    country_code?: SortOrder
+  }
+
+  export type statesAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type statesMaxOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    country_code?: SortOrder
+  }
+
+  export type statesMinOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    name?: SortOrder
+    country_code?: SortOrder
+  }
+
+  export type statesSumOrderByAggregateInput = {
+    id?: SortOrder
   }
 
   export type BigIntFieldUpdateOperationsInput = {

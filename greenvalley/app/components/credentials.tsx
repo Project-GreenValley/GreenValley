@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import GoogleSignIn from './googlesignin';
-import { createUser, findUser, signInUser } from '../helpers/actions';
+import { createUser, findUser, signInUser } from '../helpers/userActions';
 import { Users } from '../../lib/types';
 
 const Credentials = () => {
