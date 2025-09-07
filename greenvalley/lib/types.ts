@@ -8,8 +8,10 @@ export type Users = {
   bio: string | null;
   google_id: string | null;
 };
-export interface CaroselComponent {
-  slides: React.ReactNode[];
+export interface Slide1Props {
+  isValid: boolean;
+  props: any;
+  slideInfo: any;
 }
 
 export type State = {
@@ -39,4 +41,4 @@ export type SmartyObj = {
     longitude: number;
     precision: string;
   }[];
-};
+}[];

@@ -16,21 +16,24 @@ export async function states(country_code: string): Promise<State[] | null> {
   }
 }
 
-export async function validateZip(zip: string, state: string) {
+export async function validateZip(
+  zip: string,
+  state: string
+): Promise<SmartyObj | false | void> {
   try {
     const request = await fetch(
       `https://us-zipcode.api.smarty.com/lookup?auth-id=19944b2d-ee34-ec01-ebdc-690cd4a2eafd&auth-token=1lzfgWS0zyHGMX1XiDnG&zipcode=${zip}`
     );
     const result: SmartyObj = await request.json();
-    console.log(result);
-    if (result.zipcodes.length === 1) {
-      if (result.zipcodes[0].state === state) {
+
+    if (result[0].zipcodes.length === 1) {
+      if (result[0].zipcodes[0].state_abbreviation === state) {
         return result;
       } else {
         return false;
       }
     } else {
-      result.zipcodes.map((zipcode) => {
+      result[0].zipcodes.map((zipcode) => {
         if (zipcode.state === state) return result;
         else return false;
       });

@@ -1,10 +1,51 @@
 'use client';
-import { CaroselComponent } from 'lib/types';
-import React, { FC, useState } from 'react';
+// import { CaroselComponent } from 'lib/types';
+import React, { FC, JSX, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Slide1 from './Slide1';
+import Slide2 from './slide2';
+import Slide3 from './slide3';
 
-const Carosel: FC<CaroselComponent> = ({ slides }) => {
+const Carosel: FC /*<CaroselComponent>*/ = () => {
   const [curr, setCurr] = useState(0);
+  const [isValid, setIsValid] = useState(false);
+  const [slide1Info, setSlide1Info] = useState<object>({
+    zipcode: '',
+    state: '',
+    country: '',
+  });
+
+  const slidesArray = [Slide1, Slide2, Slide3];
+  function createSlide(
+    index: number,
+    props: any
+  ): {
+    slide: number;
+    content: any;
+    isValid: boolean;
+    props: any;
+    slideInfo: object;
+    slides: number;
+  } {
+    return {
+      slide: index,
+      content: slidesArray[index],
+      isValid: isValid,
+      props,
+      slideInfo: { slide1Info, setSlide1Info },
+      slides: slidesArray.length,
+    };
+  }
+
+  const slides = [
+    createSlide(0, { setIsValid }),
+    createSlide(1, {}),
+    createSlide(2, {}),
+  ];
+  const slideComponents = slides[curr];
+  const SlideContent = slideComponents.content;
+
+  // console.log('This is slides truthy', slides[curr].isValid);
 
   const prev = () => setCurr((curr) => (curr === 0 ? 0 : curr - 1));
   const next = () =>
@@ -22,7 +63,11 @@ const Carosel: FC<CaroselComponent> = ({ slides }) => {
               transition={{ duration: 0.5 }}
               className='h-full'
             >
-              {slides[curr]}
+              <SlideContent
+                isValid={slides[curr].isValid}
+                props={slides[curr].props}
+                slideInfo={slides[curr].slideInfo}
+              />
             </motion.div>
           </AnimatePresence>
         </div>
@@ -34,12 +79,14 @@ const Carosel: FC<CaroselComponent> = ({ slides }) => {
           ) : (
             <div></div>
           )}
-          <motion.button
-            className='flex justify-end items-end bg-[#1d3e4e] text-white p-2 rounded-md shadow-md'
-            onClick={next}
-          >
-            Continue
-          </motion.button>
+          {slides[curr].isValid === true && (
+            <motion.button
+              className='flex justify-end items-end bg-[#1d3e4e] text-white p-2 rounded-md shadow-md'
+              onClick={next}
+            >
+              Continue
+            </motion.button>
+          )}
         </div>
       </div>
     </div>

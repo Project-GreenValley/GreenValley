@@ -11,6 +11,16 @@ const page = () => {
     <Slide2 key='Amount' />,
     <Slide3 key='unsure' />,
   ];
+
+  function createSlide(index: number, props: any) {
+    return {
+      slide: index,
+      content: slides[index],
+      isValid: false,
+      props: props,
+      slides: slides.length,
+    };
+  }
   return (
     <div className='w-full'>
       <div className='w-full flex justify-center'>
@@ -28,7 +38,7 @@ const page = () => {
           </div>
         </div>
       </div>
-      <Carosel slides={slides} />
+      <Carosel />
     </div>
   );
 };

@@ -1,15 +1,15 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { states, validateZip } from '../helpers/campaignActions';
-import { SmartyObj, State } from '../../lib/types';
-import { STATUS_CODES } from 'http';
-const Slide1 = () => {
+import { Slide1Props, SmartyObj, State } from '../../lib/types';
+
+const Slide1: FC<Slide1Props> = ({ isValid, props, slideInfo }) => {
   const [statesList, setStatesList] = useState<State[] | null>([]);
   const [currentState, setCurrentState] = useState<string>('');
+  const [zip, setZip] = useState<string>('');
   useEffect(() => {
     const findStates = async (country_code: string) => {
       const foundStates: State[] | null = await states(country_code);
-      console.log('function is running');
       setStatesList(foundStates);
       return foundStates;
     };
@@ -17,13 +17,30 @@ const Slide1 = () => {
   }, []);
 
   const confirmZip = async (zip: string, state: string) => {
-    if (zip.length < 5) return false;
+    setZip(zip);
+    if (zip.length < 5) {
+      props.setIsValid(false);
+      return false;
+    }
     const currentInfo: SmartyObj | false | void = await validateZip(zip, state);
     console.log('This is current info', currentInfo);
     console.log(zip, state);
+    if (currentInfo) {
+      console.log('function is running');
+      slideInfo.setSlide1Info({
+        zipcode: zip,
+        state: currentState,
+        country: 'US',
+      });
+      props.setIsValid(true);
+    } else {
+      props.setIsValid(false);
+    }
 
     return currentInfo;
   };
+  console.log('This is slide1Info', slideInfo.slide1Info);
+  console.log('This is the status ', isValid);
   return (
     <div className='flex flex-col w-full h-full items-center justify-center gap-6'>
       <p className='text-lg text-center'>We like to know a few things first.</p>
@@ -37,7 +54,6 @@ const Slide1 = () => {
       <div className='flex w-full justify-center flex-col gap-2'>
         <select className=' p-3 border-1 w-full' name='Country' id=''>
           <option value='US'>United States</option>
-          <option value='CA'>Canada</option>
         </select>
         {statesList && (
           <select
@@ -48,7 +64,11 @@ const Slide1 = () => {
               setCurrentState(e.target.value);
             }}
           >
-            <option value='none'>Select a State</option>
+            <option value='none'>
+              {slideInfo.slide1Info.state
+                ? `${slideInfo.slide1Info.state}`
+                : 'Select a State'}
+            </option>
             {statesList.map((state) => (
               <option key={state.id} value={state.code}>
                 {state.name}
@@ -57,9 +77,17 @@ const Slide1 = () => {
           </select>
         )}
         <input
-          placeholder='Zip Code'
+          placeholder={
+            slideInfo.slide1Info.zipcode != ''
+              ? slideInfo.slide1Info.zipcode
+              : `Zip Code`
+          }
           type='text'
-          className='p-3 border-red-400 border-2 w-full *:'
+          className={`appearance-none p-3 ${
+            (isValid && zip.length) || slideInfo.slide1Info.zipcode > 4
+              ? 'border-green-400'
+              : 'border-red-400'
+          } border-2 w-full`}
           onChange={(e) => {
             confirmZip(e.target.value, currentState);
           }}
