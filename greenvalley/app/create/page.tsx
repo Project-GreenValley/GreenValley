@@ -3,7 +3,7 @@ import { IoIosLeaf } from 'react-icons/io';
 import Carosel from '@/components/carosel';
 import Link from 'next/link';
 import Slide1 from '@/components/Slide1';
-import Slide2 from '@/components/slide2';
+import Slide2 from '@/components/Slide2';
 import Slide3 from '@/components/slide3';
 const page = () => {
   const slides = [

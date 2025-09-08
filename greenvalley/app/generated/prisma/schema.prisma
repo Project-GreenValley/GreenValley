@@ -30,3 +30,15 @@ model states {
   name         String @db.VarChar
   country_code String @default("US") @db.VarChar
 }
+
+model category {
+  id          BigInt  @id @default(autoincrement())
+  name        String  @db.VarChar
+  description String? @db.VarChar
+}
+
+model subcategory {
+  id          BigInt  @id @default(autoincrement())
+  name        String  @db.VarChar
+  description String? @db.VarChar
+}

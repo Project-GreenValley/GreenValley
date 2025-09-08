@@ -3,7 +3,7 @@
 import React, { FC, JSX, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Slide1 from './Slide1';
-import Slide2 from './slide2';
+import Slide2 from './Slide2';
 import Slide3 from './slide3';
 
 const Carosel: FC /*<CaroselComponent>*/ = () => {
@@ -39,8 +39,8 @@ const Carosel: FC /*<CaroselComponent>*/ = () => {
 
   const slides = [
     createSlide(0, { setIsValid }),
-    createSlide(1, {}),
-    createSlide(2, {}),
+    createSlide(1, { setIsValid }),
+    createSlide(2, { setIsValid }),
   ];
   const slideComponents = slides[curr];
   const SlideContent = slideComponents.content;
@@ -79,14 +79,17 @@ const Carosel: FC /*<CaroselComponent>*/ = () => {
           ) : (
             <div></div>
           )}
-          {slides[curr].isValid === true && (
-            <motion.button
-              className='flex justify-end items-end bg-[#1d3e4e] text-white p-2 rounded-md shadow-md'
-              onClick={next}
-            >
-              Continue
-            </motion.button>
-          )}
+
+          <motion.button
+            className={`flex justify-end items-end ${
+              slides[curr].isValid ? 'bg-[#1d3e4e]' : 'bg-[#8bb1c4]'
+            } text-white p-2 rounded-md shadow-md`}
+            onClick={() => {
+              if (slides[curr].isValid === true) next();
+            }}
+          >
+            Continue
+          </motion.button>
         </div>
       </div>
     </div>

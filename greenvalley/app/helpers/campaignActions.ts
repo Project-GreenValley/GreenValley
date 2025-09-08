@@ -1,5 +1,5 @@
 'use server';
-import { SmartyObj, State } from 'lib/types';
+import { Category, SmartyObj, State } from 'lib/types';
 import prisma from '../../lib/prisma';
 
 export async function states(country_code: string): Promise<State[] | null> {
@@ -41,5 +41,15 @@ export async function validateZip(
   } catch (e) {
     console.log('Error validating zip code:', e);
     return console.error(e);
+  }
+}
+
+export async function categoriesList(): Promise<Category[] | null> {
+  try {
+    const categories: Category[] = await prisma.category.findMany();
+    return categories;
+  } catch (e) {
+    console.log('Error fetching categories:', e);
+    return null;
   }
 }

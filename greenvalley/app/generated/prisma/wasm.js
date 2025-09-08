@@ -138,6 +138,18 @@ exports.Prisma.StatesScalarFieldEnum = {
   country_code: 'country_code'
 };
 
+exports.Prisma.CategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description'
+};
+
+exports.Prisma.SubcategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -156,7 +168,9 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   users: 'users',
-  states: 'states'
+  states: 'states',
+  category: 'category',
+  subcategory: 'subcategory'
 };
 
 /**

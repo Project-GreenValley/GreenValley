@@ -21,6 +21,12 @@ export type State = {
   country_code: string;
 };
 
+export type Category = {
+  name: string;
+  id: bigint;
+  description: string | null;
+};
+
 export type SmartyObj = {
   input_index: number;
   city_states: {

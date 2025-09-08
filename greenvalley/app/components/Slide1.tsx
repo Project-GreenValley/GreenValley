@@ -71,7 +71,7 @@ const Slide1: FC<Slide1Props> = ({ isValid, props, slideInfo }) => {
             </option>
             {statesList.map((state) => (
               <option key={state.id} value={state.code}>
-                {state.name}
+                {state.code}
               </option>
             ))}
           </select>
