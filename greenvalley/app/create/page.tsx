@@ -2,25 +2,8 @@ import React from 'react';
 import { IoIosLeaf } from 'react-icons/io';
 import Carosel from '@/components/carosel';
 import Link from 'next/link';
-import Slide1 from '@/components/Slide1';
-import Slide2 from '@/components/Slide2';
-import Slide3 from '@/components/slide3';
-const page = () => {
-  const slides = [
-    <Slide1 key='location&cat' />,
-    <Slide2 key='Amount' />,
-    <Slide3 key='unsure' />,
-  ];
 
-  function createSlide(index: number, props: any) {
-    return {
-      slide: index,
-      content: slides[index],
-      isValid: false,
-      props: props,
-      slides: slides.length,
-    };
-  }
+const page = () => {
   return (
     <div className='w-full'>
       <div className='w-full flex justify-center'>

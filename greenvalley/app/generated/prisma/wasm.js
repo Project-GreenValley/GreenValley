@@ -131,6 +131,11 @@ exports.Prisma.UsersScalarFieldEnum = {
   google_id: 'google_id'
 };
 
+exports.Prisma.RelationLoadStrategy = {
+  query: 'query',
+  join: 'join'
+};
+
 exports.Prisma.StatesScalarFieldEnum = {
   id: 'id',
   code: 'code',
@@ -148,6 +153,12 @@ exports.Prisma.SubcategoryScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description'
+};
+
+exports.Prisma.Category_subcategoryScalarFieldEnum = {
+  id: 'id',
+  category_id: 'category_id',
+  subcategory_id: 'subcategory_id'
 };
 
 exports.Prisma.SortOrder = {
@@ -170,7 +181,8 @@ exports.Prisma.ModelName = {
   users: 'users',
   states: 'states',
   category: 'category',
-  subcategory: 'subcategory'
+  subcategory: 'subcategory',
+  category_subcategory: 'category_subcategory'
 };
 
 /**

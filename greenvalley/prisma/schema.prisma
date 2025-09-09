@@ -32,13 +32,27 @@ model states {
 }
 
 model category {
-  id          BigInt  @id @default(autoincrement())
-  name        String  @db.VarChar
-  description String? @db.VarChar
+  id                   BigInt                 @id @default(autoincrement())
+  name                 String                 @db.VarChar
+  description          String?                @db.VarChar
+  category_subcategory category_subcategory[]
 }
 
 model subcategory {
-  id          BigInt  @id @default(autoincrement())
-  name        String  @db.VarChar
-  description String? @db.VarChar
+  id                   BigInt                 @id @default(autoincrement())
+  name                 String                 @db.VarChar
+  description          String?                @db.VarChar
+  category_subcategory category_subcategory[]
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model category_subcategory {
+  id             BigInt      @default(autoincrement())
+  category_id    BigInt
+  subcategory_id BigInt
+  category       category    @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  subcategory    subcategory @relation(fields: [subcategory_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([id, category_id, subcategory_id])
 }

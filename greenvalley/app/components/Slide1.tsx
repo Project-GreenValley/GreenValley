@@ -23,10 +23,10 @@ const Slide1: FC<Slide1Props> = ({ isValid, props, slideInfo }) => {
       return false;
     }
     const currentInfo: SmartyObj | false | void = await validateZip(zip, state);
-    console.log('This is current info', currentInfo);
-    console.log(zip, state);
+    // console.log('This is current info', currentInfo);
+    // console.log(zip, state);
     if (currentInfo) {
-      console.log('function is running');
+      // console.log('function is running');
       slideInfo.setSlide1Info({
         zipcode: zip,
         state: currentState,
@@ -39,8 +39,8 @@ const Slide1: FC<Slide1Props> = ({ isValid, props, slideInfo }) => {
 
     return currentInfo;
   };
-  console.log('This is slide1Info', slideInfo.slide1Info);
-  console.log('This is the status ', isValid);
+  // console.log('This is slide1Info', slideInfo.slide1Info);
+  // console.log('This is the status ', isValid);
   return (
     <div className='flex flex-col w-full h-full items-center justify-center gap-6'>
       <p className='text-lg text-center'>We like to know a few things first.</p>

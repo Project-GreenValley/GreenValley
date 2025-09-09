@@ -15,7 +15,9 @@ const Menu = () => {
     <>
       <motion.div whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
         <button onClick={handleOpen}>
-          {isOpen === false && <TfiAngleDoubleLeft className='text-2xl ' />}
+          {isOpen === false && (
+            <TfiAngleDoubleLeft className='text-2xl text-white' />
+          )}
         </button>
       </motion.div>
       <AnimatePresence initial={false}>

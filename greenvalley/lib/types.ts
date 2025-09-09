@@ -23,7 +23,18 @@ export type State = {
 
 export type Category = {
   name: string;
+  id: number | bigint;
+  description: string | null;
+};
+export type Category_SubCategory = {
   id: bigint;
+  category_id: bigint;
+  subcategory_id: bigint;
+};
+
+export type SubCategory = {
+  id: number | bigint;
+  name: string;
   description: string | null;
 };
 

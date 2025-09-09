@@ -1,6 +1,7 @@
 'use server';
-import { Category, SmartyObj, State } from 'lib/types';
+import { Category, SmartyObj, State, SubCategory } from 'lib/types';
 import prisma from '../../lib/prisma';
+import { category_subcategory } from '@/generated/prisma';
 
 export async function states(country_code: string): Promise<State[] | null> {
   try {
@@ -51,5 +52,32 @@ export async function categoriesList(): Promise<Category[] | null> {
   } catch (e) {
     console.log('Error fetching categories:', e);
     return null;
+  }
+}
+
+export async function subcategoriesList(categoryId: number) {
+  try {
+    const subList: SubCategory[] = [];
+    const subcategories: category_subcategory[] =
+      await prisma.category_subcategory.findMany({
+        where: {
+          category_id: categoryId,
+        },
+      });
+
+    subcategories.forEach(async (sub) => {
+      const subCat: SubCategory | null = await prisma.subcategory.findUnique({
+        where: {
+          id: sub.subcategory_id,
+        },
+      });
+
+      if (subCat) {
+        subList.push(subCat);
+      }
+    });
+    return subList;
+  } catch (e) {
+    console.log('Error fetching subcategories:', e);
   }
 }
