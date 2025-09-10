@@ -55,6 +55,40 @@ export async function categoriesList(): Promise<Category[] | null> {
   }
 }
 
+export async function findRelevantSubCategory(
+  subcategoryId: number
+): Promise<SubCategory | null> {
+  try {
+    const subcategory: SubCategory | null = await prisma.subcategory.findFirst({
+      where: {
+        id: subcategoryId,
+      },
+    });
+    console.log('this is the found subcategory', subcategory);
+    return subcategory;
+  } catch (e) {
+    console.log('Error fetching relevant subcategory:', e);
+    return null;
+  }
+}
+export async function findRelevantCategory(
+  categoryId: number
+): Promise<SubCategory | null> {
+  try {
+    const category: Category | null = await prisma.category.findFirst({
+      where: {
+        id: categoryId,
+      },
+    });
+
+    console.log('this is the found category', category);
+    return category;
+  } catch (e) {
+    console.log('Error fetching relevant category:', e);
+    return null;
+  }
+}
+
 export async function subcategoriesList(categoryId: number) {
   try {
     //const subList: SubCategory[] = [];

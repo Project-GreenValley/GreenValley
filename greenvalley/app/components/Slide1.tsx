@@ -1,9 +1,10 @@
 'use client';
 import React, { FC, useEffect, useState } from 'react';
 import { states, validateZip } from '../helpers/campaignActions';
-import { Slide1Props, SmartyObj, State } from '../../lib/types';
+import { SlideProps, SmartyObj, State } from '../../lib/types';
 
-const Slide1: FC<Slide1Props> = ({ isValid, props, slideInfo }) => {
+const Slide1: FC<SlideProps> = ({ isValid, props, slideInfo }) => {
+  const slide1Info = slideInfo.slideInfo.slide1Info;
   const [statesList, setStatesList] = useState<State[] | null>([]);
   const [currentState, setCurrentState] = useState<string>('');
   const [zip, setZip] = useState<string>('');
@@ -19,7 +20,9 @@ const Slide1: FC<Slide1Props> = ({ isValid, props, slideInfo }) => {
   const confirmZip = async (zip: string, state: string) => {
     setZip(zip);
     if (zip.length < 5) {
-      props.setIsValid(false);
+      props.setIsValid((prev: any) => {
+        return { ...prev, slide1: false };
+      });
       return false;
     }
     const currentInfo: SmartyObj | false | void = await validateZip(zip, state);
@@ -27,19 +30,26 @@ const Slide1: FC<Slide1Props> = ({ isValid, props, slideInfo }) => {
     // console.log(zip, state);
     if (currentInfo) {
       // console.log('function is running');
-      slideInfo.setSlide1Info({
-        zipcode: zip,
-        state: currentState,
-        country: 'US',
+      slideInfo.setSlideInfo((prev: any) => ({
+        ...prev,
+        ['slide1Info']: {
+          zipcode: zip,
+          state: currentState,
+          country: 'US',
+        },
+      }));
+      props.setIsValid((prev: any) => {
+        return { ...prev, slide1: true };
       });
-      props.setIsValid(true);
     } else {
-      props.setIsValid(false);
+      props.setIsValid((prev: any) => {
+        return { ...prev, slide1: false };
+      });
     }
 
     return currentInfo;
   };
-  // console.log('This is slide1Info', slideInfo.slide1Info);
+  // console.log('This is slide1Info', slide1Info);
   // console.log('This is the status ', isValid);
   return (
     <div className='flex flex-col w-full h-full items-center justify-center gap-6'>
@@ -65,9 +75,7 @@ const Slide1: FC<Slide1Props> = ({ isValid, props, slideInfo }) => {
             }}
           >
             <option value='none'>
-              {slideInfo.slide1Info.state
-                ? `${slideInfo.slide1Info.state}`
-                : 'Select a State'}
+              {slide1Info.state ? `${slide1Info.state}` : 'Select a State'}
             </option>
             {statesList.map((state) => (
               <option key={state.id} value={state.code}>
@@ -78,13 +86,11 @@ const Slide1: FC<Slide1Props> = ({ isValid, props, slideInfo }) => {
         )}
         <input
           placeholder={
-            slideInfo.slide1Info.zipcode != ''
-              ? slideInfo.slide1Info.zipcode
-              : `Zip Code`
+            slide1Info.zipcode != '' ? slide1Info.zipcode : `Zip Code`
           }
           type='text'
           className={`appearance-none p-3 ${
-            (isValid && zip.length) || slideInfo.slide1Info.zipcode > 4
+            (isValid && zip.length) || slide1Info.zipcode > 4
               ? 'border-green-400'
               : 'border-red-400'
           } border-2 w-full`}

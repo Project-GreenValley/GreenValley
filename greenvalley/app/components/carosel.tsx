@@ -8,11 +8,21 @@ import Slide3 from './slide3';
 
 const Carosel: FC /*<CaroselComponent>*/ = () => {
   const [curr, setCurr] = useState(0);
-  const [isValid, setIsValid] = useState(false);
-  const [slide1Info, setSlide1Info] = useState<object>({
-    zipcode: '',
-    state: '',
-    country: '',
+  const [isValid, setIsValid] = useState<{ [key: string]: boolean }>({
+    slide1: false,
+    slide2: false,
+    slide3: false,
+  });
+  const [slideInfo, setSlideInfo] = useState<object>({
+    slide1Info: {
+      zipcode: '',
+      state: '',
+      country: '',
+    },
+    slide2Info: {
+      category: '',
+      subcategories: {},
+    },
   });
 
   const slidesArray = [Slide1, Slide2, Slide3];
@@ -30,9 +40,9 @@ const Carosel: FC /*<CaroselComponent>*/ = () => {
     return {
       slide: index,
       content: slidesArray[index],
-      isValid: isValid,
+      isValid: isValid[`slide${index + 1}`],
       props,
-      slideInfo: { slide1Info, setSlide1Info },
+      slideInfo: { slideInfo, setSlideInfo },
       slides: slidesArray.length,
     };
   }

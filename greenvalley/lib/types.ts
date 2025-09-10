@@ -8,7 +8,7 @@ export type Users = {
   bio: string | null;
   google_id: string | null;
 };
-export interface Slide1Props {
+export interface SlideProps {
   isValid: boolean;
   props: any;
   slideInfo: any;
