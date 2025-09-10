@@ -57,26 +57,59 @@ export async function categoriesList(): Promise<Category[] | null> {
 
 export async function subcategoriesList(categoryId: number) {
   try {
-    const subList: SubCategory[] = [];
+    //const subList: SubCategory[] = [];
     const subcategories: category_subcategory[] =
+      //this waits for each await before moving on thats why it works
       await prisma.category_subcategory.findMany({
         where: {
           category_id: categoryId,
         },
       });
 
-    subcategories.forEach(async (sub) => {
-      const subCat: SubCategory | null = await prisma.subcategory.findUnique({
-        where: {
-          id: sub.subcategory_id,
-        },
-      });
+    //This works but is slower than the map method
+    // for (let i = 0; i < subcategories.length; i++) {
+    //   const subCat: SubCategory | null = await prisma.subcategory.findUnique({
+    //     where: {
+    //       id: subcategories[i].subcategory_id,
+    //     },
+    //   });
 
-      if (subCat) {
-        subList.push(subCat);
-      }
-    });
-    return subList;
+    //   if (subCat) {
+    //     console.log('This is subCat', subCat);
+    //     subList.push(subCat);
+    //   }
+    // }
+
+    //these are not very good for async calls what happens is map doesnt wait for the async callback
+    //it returns an array of promises so the subList is always empty
+    // and the code contimues before the promises resolve which is why it stays empty
+    // to fix this you need to add an await Promise.all to the begining as so
+    // *const subList = await Promise.all(subcategories.map(async (sub) => {
+    //   const subCat: SubCategory | null = await prisma.subcategory.findUnique({
+    //     where: {
+    //       id: sub.subcategory_id,
+    //     },
+    //   });
+    //*)
+
+    //   if (subCat) {
+    //     console.log('This is subCat', subCat);
+    //     subList.push(subCat);
+    //   }
+    // });
+
+    const subList: (SubCategory | null)[] = await Promise.all(
+      subcategories.map(async (sub) => {
+        return prisma.subcategory.findUnique({
+          where: {
+            id: sub.subcategory_id,
+          },
+        });
+      })
+    );
+
+    const filteredList = subList.filter((subCat) => subCat != null);
+    return filteredList;
   } catch (e) {
     console.log('Error fetching subcategories:', e);
   }
