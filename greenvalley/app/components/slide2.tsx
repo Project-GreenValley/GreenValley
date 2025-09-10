@@ -90,6 +90,7 @@ const Slide2: FC<SlideProps> = ({ isValid, props, slideInfo }) => {
   const handleSubCat = async (e: any) => {
     const Id = e.target.value;
     const foundSubCat = await findRelevantSubCategory(Number(Id));
+
     setSelectedSubCats((prev) => {
       let updatedSubCats = { ...prev };
 
@@ -104,6 +105,12 @@ const Slide2: FC<SlideProps> = ({ isValid, props, slideInfo }) => {
         return { ...prev, slide2: true };
       });
 
+      if (Object.keys(updatedSubCats).length === 0) {
+        console.log('No more in subcatsList');
+        props.setIsValid((prev: any) => {
+          return { ...prev, slide2: false };
+        });
+      }
       return updatedSubCats;
     });
   };
@@ -111,10 +118,6 @@ const Slide2: FC<SlideProps> = ({ isValid, props, slideInfo }) => {
 
   useEffect(() => {
     findCategories();
-
-    // if (slide2Info.categories != '') {
-    //   findSubCategories(Number(slide2Info.category.id));
-    // }
   }, []);
   useEffect(() => {
     slideInfo.setSlideInfo((prev: any) => ({
