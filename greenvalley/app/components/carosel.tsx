@@ -4,7 +4,7 @@ import React, { FC, JSX, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Slide1 from './Slide1';
 import Slide2 from './Slide2';
-import Slide3 from './slide3';
+import Slide3 from './Slide3';
 
 const Carosel: FC /*<CaroselComponent>*/ = () => {
   const [curr, setCurr] = useState(0);
@@ -22,6 +22,12 @@ const Carosel: FC /*<CaroselComponent>*/ = () => {
     slide2Info: {
       category: '',
       subcategories: {},
+    },
+    slide3info: {
+      campaignName: '',
+      tagline: '',
+      description: '',
+      website: '',
     },
   });
 
