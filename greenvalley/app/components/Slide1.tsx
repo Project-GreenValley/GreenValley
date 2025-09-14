@@ -25,6 +25,13 @@ const Slide1: FC<SlideProps> = ({ isValid, props, slideInfo }) => {
       });
       return false;
     }
+
+    if (state === 'none' || state === '' || state === undefined) {
+      props.setIsValid((prev: any) => {
+        return { ...prev, slide1: false };
+      });
+      return false;
+    }
     const currentInfo: SmartyObj | false | void = await validateZip(zip, state);
     // console.log('This is current info', currentInfo);
     // console.log(zip, state);
@@ -71,6 +78,7 @@ const Slide1: FC<SlideProps> = ({ isValid, props, slideInfo }) => {
             name='State/Province'
             id=''
             onChange={(e) => {
+              confirmZip(zip, e.target.value);
               setCurrentState(e.target.value);
             }}
           >
