@@ -23,8 +23,9 @@ const Slide3: FC<SlideProps> = ({ isValid, props, slideInfo }) => {
     if (slide3Info.description.trim() != '') {
       setDescription(slide3Info.description);
     }
-    if (slide3Info.website.trim() != '') {
+    if (slide3Info.website.trim() != '' || slide3Info.website.trim() === '') {
       setWebsite(slide3Info.website);
+      isValidURL(slide3Info.website);
     }
   }, []);
 
@@ -105,7 +106,7 @@ const Slide3: FC<SlideProps> = ({ isValid, props, slideInfo }) => {
               type='text'
               maxLength={100}
               placeholder={`${
-                slide3Info?.tagline.trim() !== '' ? `${slide3Info.tagLine}` : ''
+                slide3Info?.tagline.trim() !== '' ? `${slide3Info.tagline}` : ''
               }`}
               onChange={(e) => setTagline(() => e.target.value)}
             />

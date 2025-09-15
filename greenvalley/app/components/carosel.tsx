@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Slide1 from './Slide1';
 import Slide2 from './Slide2';
 import Slide3 from './Slide3';
+import Slide4 from './Slide4';
 
 const Carosel: FC /*<CaroselComponent>*/ = () => {
   const [curr, setCurr] = useState(0);
@@ -12,6 +13,7 @@ const Carosel: FC /*<CaroselComponent>*/ = () => {
     slide1: false,
     slide2: false,
     slide3: false,
+    slide4: false,
   });
   const [slideInfo, setSlideInfo] = useState<object>({
     slide1Info: {
@@ -29,9 +31,10 @@ const Carosel: FC /*<CaroselComponent>*/ = () => {
       description: '',
       website: '',
     },
+    slide4info: {},
   });
 
-  const slidesArray = [Slide1, Slide2, Slide3];
+  const slidesArray = [Slide1, Slide2, Slide3, Slide4];
   function createSlide(
     index: number,
     props: any
@@ -57,6 +60,7 @@ const Carosel: FC /*<CaroselComponent>*/ = () => {
     createSlide(0, { setIsValid }),
     createSlide(1, { setIsValid }),
     createSlide(2, { setIsValid }),
+    createSlide(3, { setIsValid }),
   ];
   const slideComponents = slides[curr];
   const SlideContent = slideComponents.content;
